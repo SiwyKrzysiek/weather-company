@@ -2,6 +2,11 @@
 
 let weatherData;
 
+$(document).ready(() => {
+    // TODO: Get city name from user/config
+    displayWeather('Warsaw');
+});
+
 async function getWeatherData(cityName) {
     const apiKey = "7cad625ece0a657d34524777c3f14cfa";
     const urlBase = "https://api.openweathermap.org/data/2.5/weather"
@@ -35,22 +40,29 @@ async function displayWeather(cityName) {
 // Weather date is loaded from weatherData variable
 function renderWeather() {
     console.log(weatherData);
-    renderTemperature();
-    renderRain();
+    const temperature = convertKelvinToCelsius(weatherData.main.temp);
+    const rain = mockRainData();
+
+    renderTemperature(temperature);
+    renderRain(rain);
 }
 
 // Display temperature in html
-function renderTemperature() {
+// temperature - temperature in Celsius degrees
+function renderTemperature(temperature) {
+    const temp = temperature.toFixed(2);
+    const tempSpan = document.getElementById("current-temp");
 
+    tempSpan.innerText = temp;
 }
 
 // Display rain data in html
-function renderRain() {
-
+function renderRain(rainPercentage) {
+    const percentage = rainPercentage.toFixed(0);
+    console.log(percentage);
 }
 
-
-$(document).ready(() => {
-    // TODO: Get city name from user/config
-    displayWeather('Warsaw');
-});
+function convertKelvinToCelsius(tempInKelvin) {
+    const diffrence = 273.15;
+    return tempInKelvin - diffrence;
+}
