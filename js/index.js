@@ -11,6 +11,12 @@ async function getWeatherData(cityName) {
     return fetch(url);
 }
 
+// Returns rain percentage from 0 to 100
+function mockRainData() {
+    // TODO: Use cloud data
+    return Math.random() * 100;
+}
+
 // Reload weather and update website
 // Lousily couple with rendering by using view model
 async function displayWeather(cityName) {
@@ -28,6 +34,18 @@ async function displayWeather(cityName) {
 // Display weather data in html
 // Weather date is loaded from weatherData variable
 function renderWeather() {
+    console.log(weatherData);
+    renderTemperature();
+    renderRain();
+}
+
+// Display temperature in html
+function renderTemperature() {
+
+}
+
+// Display rain data in html
+function renderRain() {
 
 }
 
