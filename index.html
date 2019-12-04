@@ -8,12 +8,34 @@
 
 	<title>Nasz prawie autorski design</title>
 
+
+	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+
+
 	<!-- Loading third party fonts -->
 	<link href="http://fonts.googleapis.com/css?family=Roboto:300,400,700|" rel="stylesheet" type="text/css">
 	<link href="fonts/font-awesome.min.css" rel="stylesheet" type="text/css">
 
 	<!-- Loading main css file -->
 	<link rel="stylesheet" href="style.css">
+	<script  type="text/javascript">
+		var data_url="https://api.openweathermap.org/data/2.5/weather?q=Warsaw,pl&APPID=7cad625ece0a657d34524777c3f14cfa";
+
+		getWeather(function (data) {
+			var temp = data.main.temp-273.15
+			var weather_html = (temp).toPrecision(2)+"<sup>o</sup>C";
+			document.getElementById('opady').innerHTML = weather_html;
+		});
+		// function to use jsonp to get weather information
+		function getWeather(callback) {
+			$.ajax({
+				dataType: "jsonp",
+				url: data_url,
+				success: callback
+			});
+		};
+
+	</script>
 
 </head>
 
@@ -65,9 +87,9 @@
 							<div class="date">6 Oct</div>
 						</div> <!-- .forecast-header -->
 						<div class="forecast-content">
-							<div class="location">New York</div>
+							<div class="location">Warszawa</div>
 							<div class="degree">
-								<div class="num">23<sup>o</sup>C</div>
+								<div id="opady" class="num">23<sup>o</sup>C</div>
 								<div class="forecast-icon">
 									<img src="images/icons/icon-1.svg" alt="" width=90>
 								</div>
@@ -158,7 +180,8 @@
 				<div class="container">
 					<!-- <h1>Test</1h> -->
 					<div class="row">
-						<h1>Company evnets</h1>
+						<h1>Company events</h1>
+
 					</div>
 					<div class="row">
 						<div class="col-md-4">
