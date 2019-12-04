@@ -51,15 +51,17 @@ function renderWeather() {
 // temperature - temperature in Celsius degrees
 function renderTemperature(temperature) {
     const temp = temperature.toFixed(2);
-    const tempSpan = document.getElementById("current-temp");
+    const element = document.getElementById("current-temp");
 
-    tempSpan.innerText = temp;
+    element.innerText = temp;
 }
 
 // Display rain data in html
 function renderRain(rainPercentage) {
     const percentage = rainPercentage.toFixed(0);
-    console.log(percentage);
+    const element = document.getElementById("current-rain");
+
+    element.innerText = percentage;
 }
 
 function convertKelvinToCelsius(tempInKelvin) {
