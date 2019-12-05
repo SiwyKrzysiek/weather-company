@@ -7,13 +7,24 @@ $(document).ready(() => {
     displayWeather('Warsaw');
 });
 
+// Get weather data and save it to View Model
 async function getWeatherData(cityName) {
     const apiKey = "7cad625ece0a657d34524777c3f14cfa";
     const urlBase = "https://api.openweathermap.org/data/2.5/weather"
 
     const url = `${urlBase}?q=${cityName},pl&APPID=${apiKey}`;
 
-    return fetch(url);
+    try {
+        // Get data from API
+        const response = await fetch(url);
+        weatherData = await response.json();
+
+        // Add rain data
+        weatherData.main.rain = mockRainData();
+    }
+    catch (e) {
+        throw (e);
+    }
 }
 
 // Returns rain percentage from 0 to 100
@@ -26,8 +37,7 @@ function mockRainData() {
 // Lousily couple with rendering by using view model
 async function displayWeather(cityName) {
     try {
-        let response = await getWeatherData(cityName);
-        weatherData = await response.json();
+        await getWeatherData(cityName);
 
         renderWeather();
     }
@@ -41,7 +51,7 @@ async function displayWeather(cityName) {
 function renderWeather() {
     console.log(weatherData);
     const temperature = convertKelvinToCelsius(weatherData.main.temp);
-    const rain = mockRainData();
+    const rain = weatherData.main.rain;
 
     renderTemperature(temperature);
     renderRain(rain);
