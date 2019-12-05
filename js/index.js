@@ -4,7 +4,10 @@ let weatherData;
 
 $(document).ready(() => {
     // TODO: Get city name from user/config
-    displayWeather('Warsaw');
+    let citi = "Warsaw";
+
+    document.getElementById("refresh-weather").onclick = () => (displayWeather(citi));
+    displayWeather(citi);
 });
 
 // Get weather data and save it to View Model

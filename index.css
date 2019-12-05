@@ -1,0 +1,20 @@
+.forecast-header {
+    display: flex;
+    flex-direction: row;
+}
+
+.forecast-header .day {
+    flex-grow: 1;
+    text-align: left;
+}
+
+.forecast-header .date {
+    margin-right: 8px;
+}
+
+.forecast-header .refresh-button {
+    background-color: #009ad8;
+    color: white;
+    border-radius: 10px;
+    font-size: 20px;
+}
