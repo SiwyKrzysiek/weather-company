@@ -35,39 +35,53 @@
         grid-template-rows: 400px 200px 200px;
     }
 
+    .forecast-container .forecast .forecast-content {
+        padding-top: 15px;
+    }
+
+    .forecast-container :not(.today).forecast .forecast-icon {
+        margin-bottom: 0;
+    }
+
     #f0 {
         grid-row: 1;
         grid-column: 1 / span 3;
     }
 
     #f1 {
-        grid-row: 2;
-        grid-column: 1;
+        grid-row: 2 / span 1;
+        grid-column: 1 / span 1;
+        width: auto;
     }
 
     #f2 {
         grid-row: 2;
         grid-column: 2;
+        width: auto;
     }
 
     #f3 {
         grid-row: 2;
         grid-column: 3;
+        width: auto;
     }
 
     #f4 {
         grid-row: 3;
         grid-column: 1;
+        width: auto;
     }
 
     #f5 {
         grid-row: 3;
         grid-column: 2;
+        width: auto;
     }
 
     #f6 {
         grid-row: 3;
         grid-column: 3;
+        width: auto;
     }
 
     /* body {
