@@ -18,3 +18,10 @@
     border-radius: 10px;
     font-size: 20px;
 }
+
+/* UI break point */
+@media (max-width: 520px) {
+    /* body {
+        background-color: white;
+    } */
+}
