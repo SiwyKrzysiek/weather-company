@@ -20,6 +20,14 @@
 }
 
 /* UI break point */
+@media (min-width: 901px) {
+    .forecast-header {
+        min-height: 49px;
+    }
+}
+
+
+/* UI break point */
 @media (max-width: 520px) {
     /* body {
         background-color: white;
