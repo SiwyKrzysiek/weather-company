@@ -19,16 +19,24 @@
     font-size: 20px;
 }
 
-/* UI break point */
+/* Daily weather on the right */
 @media (min-width: 901px) {
     .forecast-header {
         min-height: 49px;
     }
 }
 
-
-/* UI break point */
+/* Mobile view */
 @media (max-width: 520px) {
+    .fullwidth-block {
+        padding-left: 5vw;
+        padding-right: 1vw;
+    }
+
+    .colophon {
+        margin-top: 7px;
+    }
+
     .forecast-container {
         display: grid;
         grid-template-columns: 33.33% 33.33% auto;
