@@ -39,7 +39,7 @@
 
     .forecast-container {
         display: grid;
-        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-columns: 33.33% 33.33% auto;
         grid-template-rows: 400px 200px 200px;
     }
 
