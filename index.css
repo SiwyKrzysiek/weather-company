@@ -28,6 +28,10 @@
 
 /* Mobile view */
 @media (max-width: 520px) {
+    #f0>div.forecast-content>div.degree>div.num {
+        font-size: 20vw;
+    }
+
     .fullwidth-block {
         padding-left: 5vw;
         padding-right: 1vw;
@@ -90,5 +94,11 @@
         grid-row: 3;
         grid-column: 3;
         width: auto;
+    }
+}
+
+@media (max-width: 380px) {
+    #f0>div.forecast-content>div.degree>div.num {
+        font-size: 15vw;
     }
 }
