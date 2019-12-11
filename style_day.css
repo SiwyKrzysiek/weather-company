@@ -1674,3 +1674,31 @@ form textarea {
     .site-footer .social-links a:hover {
       background: #009ad8;
       color: black; }
+
+.moodBackground {
+    background-color: #ffffff;
+}
+
+.moodName {
+    float: left;
+    width: 30%;
+    background-color: #ffffff;
+    margin: 1%;
+    padding: 1%;
+}
+
+.moodImage {
+    width: 30%;
+    float: right;
+    background-color: #ffffff;
+    margin: 1%;
+    padding: 1%;
+}
+
+.moodInfo {
+    float: right;
+    width: 30%;
+    background-color: #ffffff;
+    margin: 1%;
+    padding: 1%;
+}
