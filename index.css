@@ -18,3 +18,87 @@
     border-radius: 10px;
     font-size: 20px;
 }
+
+/* Daily weather on the right */
+@media (min-width: 901px) {
+    .forecast-header {
+        min-height: 49px;
+    }
+}
+
+/* Mobile view */
+@media (max-width: 520px) {
+    #f0>div.forecast-content>div.degree>div.num {
+        font-size: 20vw;
+    }
+
+    .fullwidth-block {
+        padding-left: 5vw;
+        padding-right: 1vw;
+    }
+
+    .colophon {
+        margin-top: 7px;
+    }
+
+    .forecast-container {
+        display: grid;
+        grid-template-columns: 33.33% 33.33% auto;
+        grid-template-rows: 400px 200px 200px;
+    }
+
+    .forecast-container .forecast .forecast-content {
+        padding-top: 15px;
+    }
+
+    .forecast-container :not(.today).forecast .forecast-icon {
+        margin-bottom: 0;
+    }
+
+    #f0 {
+        grid-row: 1;
+        grid-column: 1 / span 3;
+    }
+
+    #f1 {
+        grid-row: 2 / span 1;
+        grid-column: 1 / span 1;
+        width: auto;
+    }
+
+    #f2 {
+        grid-row: 2;
+        grid-column: 2;
+        width: auto;
+    }
+
+    #f3 {
+        grid-row: 2;
+        grid-column: 3;
+        width: auto;
+    }
+
+    #f4 {
+        grid-row: 3;
+        grid-column: 1;
+        width: auto;
+    }
+
+    #f5 {
+        grid-row: 3;
+        grid-column: 2;
+        width: auto;
+    }
+
+    #f6 {
+        grid-row: 3;
+        grid-column: 3;
+        width: auto;
+    }
+}
+
+@media (max-width: 380px) {
+    #f0>div.forecast-content>div.degree>div.num {
+        font-size: 15vw;
+    }
+}
