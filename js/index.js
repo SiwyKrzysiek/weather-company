@@ -39,7 +39,7 @@ async function getWeatherData(cityName) {
         throw (e);
     }
 }
-async function getForecast(cityName){
+async function getForecast(cityName) {
     const url = `${urlForecast}?q=${cityName},pl&APPID=${apiKey}`;
     try {
         // Get data from API
@@ -110,8 +110,8 @@ function convertKelvinToCelsius(tempInKelvin) {
 
 const getWeekFromToday = (date) => {
     const weekFromToday = [];
-    weekFromToday.push(...days.slice(date.getDay(), days.length),...days.slice(0, date.getDay()) );
-    return weekFromToday.map((day, index)=> {
+    weekFromToday.push(...days.slice(date.getDay(), days.length), ...days.slice(0, date.getDay()));
+    return weekFromToday.map((day, index) => {
         const dayDate = new Date(date.getTime());
         dayDate.setDate(date.getDate() + index);
 
@@ -130,7 +130,7 @@ const renderForecastData = async () => {
     const daysHTML = weekFromToday.map((dataObject, index) => {
         if (index === 0) {
             return `
-<div class="today forecast">
+<div id="f0" class="today forecast">
     <div class="forecast-header">
     <div class="day">${dataObject.day}</div>
     <div class="date">${dataObject.date.getDate()} ${dataObject.month}</div>
@@ -163,7 +163,7 @@ const renderForecastData = async () => {
         }
 
 
-        return `<div class="forecast">
+        return `<div id="f${index}" class="forecast">
             <div class="forecast-header">
             <div class="day">${dataObject.day}</div>
             </div> <!-- .forecast-header -->
