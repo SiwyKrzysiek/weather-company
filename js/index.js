@@ -1,6 +1,7 @@
-"use strict";
+﻿"use strict";
 
 let weatherData;
+let moodName, moodInfo, moodImage;
 
 $(document).ready(() => {
     // TODO: Get city name from user/config
@@ -8,6 +9,9 @@ $(document).ready(() => {
 
     document.getElementById("refresh-weather").onclick = () => (displayWeather(citi));
     displayWeather(citi);
+
+    renderMood();
+    displayMood();
 });
 
 // Get weather data and save it to View Model
@@ -80,4 +84,59 @@ function renderRain(rainPercentage) {
 function convertKelvinToCelsius(tempInKelvin) {
     const diffrence = 273.15;
     return tempInKelvin - diffrence;
+}
+
+function renderMood() {
+    let d = new Date().getDay();
+    //hand-made random number generator:
+    let moodCode = ((d * 11) % 137) % 5;
+
+    switch (moodCode) {
+        case 0:
+            moodName = "Zdenerwowanie";
+            moodInfo = "Inni mogą być dzisiaj nieco poddenerwowani. Bądź cierpliwy i wyrozumiały. Nie planuj ważnych spotkań ani kluczowych negocjacji, a jeśli nie możesz ich uniknąć, zadbaj o miłą atmosferę już od początku spotkania - paradoksalnie, miły gest może zdziałać więcej niż trafienie na dobry nastrój rozmówcy.";
+            moodImage = "angry";
+            break;
+
+        case 1:
+            moodName = "Radość";
+            moodInfo = "Dzisiaj możesz spodziewać się wesołych nastrojów u innych ludzi. Warto podchodzić do ważnych biznesowych rozmów, oraz produktywnie spędzić czas. Może warto wykorzystać ten dobry dzień, aby zapoznać sie z kimś nowym podczas przerwy?";
+            moodImage = "happy";
+            break;
+
+        case 2:
+            moodName = "Smutek";
+            moodInfo = "Dzisiaj wszyscy mogą mieć nieco gorszy dzień. Staraj się unikać nadmiernej krytyki, zwłaszcza gdy może być spowodowana Twoim gorszym nastrojem. Nie szukaj ucieczki w kieliszku.";
+            moodImage = "sad";
+            break;
+
+        case 3:
+            moodName = "Neutralny";
+            moodInfo = "Dzisiejsza pogoda sprzyja spokojnym nastrojom. Spodziewaj się profesjonalnych współpracowników i klientów. To dobry dzień, aby planować duże projekty i omawiać istotne problemy - Twój zespół będzie mysleć rzeczowo i analitycznie, zostawiając emocje na drugim planie.";
+            moodImage = "neutral";
+            break;
+
+        case 4:
+            moodName = "Euforia";
+            moodInfo = "Dzisiaj możesz spodziewać się wesołych nastrojów u innych ludzi. Warto podchodzić do ważnych biznesowych rozmów, oraz produktywnie spędzić czas. Może warto wykorzystać ten dobry dzień, aby zapoznać sie z kimś nowym podczas przerwy?";
+            moodImage = "euphoric";
+            break;
+
+        default:
+            moodName = "error"
+            moodInfo = "error";
+    }
+
+    
+}
+
+function displayMood() {
+    const mName = document.getElementById("mName");
+    mName.innerText = moodName;
+
+    const mImage = document.getElementById("mImage");
+    mImage.src = "images/" + moodImage + ".png";
+
+    const mInfo = document.getElementById("mInfo");
+    mInfo.innerText = moodInfo;
 }
