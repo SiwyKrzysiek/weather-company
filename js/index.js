@@ -11,7 +11,7 @@ const apiKey = "7cad625ece0a657d34524777c3f14cfa";
 const urlBase = "https://api.openweathermap.org/data/2.5";
 const urlWeather = `${urlBase}/weather`;
 const urlForecast = `${urlBase}/forecast`;
-
+const imgSource = "images/icons/";
 
 
 $(document).ready(async () => {
@@ -124,6 +124,18 @@ const getWeekFromToday = (date) => {
     });
 }
 
+function getWeatherIcon(forecastDay) {
+	var weather;
+	if(forecastDay.weather[0]["main"] == "Clouds")
+		if(forecastDay.weather[0]["description"] == "few clouds" || forecastDay.weather[0]["description"] == "scattered clouds" )
+			weather = "Fewclouds";
+		else
+			weather = "Clouds";
+	else
+		weather = forecastDay.weather[0]["main"]
+		return imgSource + weather + ".png";
+}
+
 const renderForecastData = async () => {
     const forecastData = await getForecast("Warsaw");
     const weekFromToday = getWeekFromToday(new Date());
@@ -143,7 +155,7 @@ const renderForecastData = async () => {
         <div class="degree">
             <div class="num"><span id="current-temp">NA</span><sup>o</sup>C</div>
             <div class="forecast-icon">
-                <img src="images/icons/icon-1.svg" alt="" width=90>
+                <img src=${getWeatherIcon(forecastData.list[0])} alt="" width=90>
             </div>
         </div>
         <span><img src="images/icon-umberella.png" alt=""><span id="current-rain"
@@ -169,7 +181,7 @@ const renderForecastData = async () => {
             </div> <!-- .forecast-header -->
             <div class="forecast-content">
             <div class="forecast-icon">
-            <img src="images/icons/icon-3.svg" alt="" width=48>
+            <img src=${getWeatherIcon(forecastDay)} alt="" width=70>
             </div>
             <div class="degree">${convertKelvinToCelsius(forecastDay.main.temp).toFixed(2)}<sup>o</sup>C</div>
             <small>${convertKelvinToCelsius(forecastNight.main.temp).toFixed(2)}<sup>o</sup></small>
