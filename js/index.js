@@ -42,7 +42,7 @@ function fileFromURL(ulr) {
     return regex.exec(ulr)[0].substring(1);
 }
 
-// Detect wich theme is initially set
+// Detect wich theme is initially set in html file
 function detectTheme() {
     const link = document.getElementById("theme");
     const themeFile = fileFromURL(link.href);
