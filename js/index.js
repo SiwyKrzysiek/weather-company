@@ -61,12 +61,32 @@ function initializeThemeSwitch() {
     const themeSwitch = document.getElementById("themeSwitch");
 
     if (currentTheme === "dark") {
-        console.log("Setting switch to dark")
         themeSwitch.checked = false;
     }
     if (currentTheme === "light") {
         themeSwitch.checked = true;
     }
+
+    themeSwitch.addEventListener('change', handleThemeChange);
+}
+
+function handleThemeChange(event) {
+    if (event.target.checked) {
+        setTheme("light");
+    }
+    else {
+        setTheme("dark");
+    }
+}
+
+// Set page them to one defined in themes variable
+function setTheme(theme) {
+    if (!themes[theme])
+        throw new Error("Theme not found");
+
+    currentTheme = theme;
+    const link = document.getElementById("theme");
+    link.href = themes[currentTheme];
 }
 
 // Get weather data and save it to View Model
