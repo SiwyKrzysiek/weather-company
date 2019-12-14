@@ -44,7 +44,16 @@ function fileFromURL(ulr) {
 // Detect wich theme is initially set
 function detectTheme() {
     const link = document.getElementById("theme");
-    const theme = fileFromURL(link.href);
+    const themeFile = fileFromURL(link.href);
+
+    for (let theme in themes) {
+        if (themes[theme] === themeFile) {
+            currentTheme = theme;
+            return;
+        }
+    }
+
+    console.error("Not theme detected. Make sure that themes object matches css theme files")
 }
 
 // Get weather data and save it to View Model
