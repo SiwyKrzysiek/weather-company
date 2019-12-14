@@ -22,6 +22,7 @@ let currentTheme;
 
 $(document).ready(async () => {
     detectTheme();
+    initializeThemeSwitch();
 
     // TODO: Get city name from user/config
     let citi = "Warsaw";
@@ -54,6 +55,18 @@ function detectTheme() {
     }
 
     console.error("Not theme detected. Make sure that themes object matches css theme files")
+}
+
+function initializeThemeSwitch() {
+    const themeSwitch = document.getElementById("themeSwitch");
+
+    if (currentTheme === "dark") {
+        console.log("Setting switch to dark")
+        themeSwitch.checked = false;
+    }
+    if (currentTheme === "light") {
+        themeSwitch.checked = true;
+    }
 }
 
 // Get weather data and save it to View Model
