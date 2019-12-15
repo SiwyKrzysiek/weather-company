@@ -1,3 +1,3 @@
 # weather-company
 
-[Podgląd strony](https://siwykrzysiek.github.io/weather-company/)
+[Podgląd strony](https://weather-company.herokuapp.com/index.html)

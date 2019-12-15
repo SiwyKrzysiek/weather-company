@@ -13,9 +13,17 @@ const urlBase = "https://api.openweathermap.org/data/2.5";
 const urlWeather = `${urlBase}/weather`;
 const urlForecast = `${urlBase}/forecast`;
 
-
+const themes = {
+    light: "style_day.css",
+    dark: "style.css"
+};
+Object.freeze(themes);
+let currentTheme;
 
 $(document).ready(async () => {
+    detectTheme();
+    initializeThemeSwitch();
+
     // TODO: Get city name from user/config
     let citi = "Warsaw";
 
@@ -27,6 +35,59 @@ $(document).ready(async () => {
     renderMood();
     displayMood();
 });
+
+// Strip last parto fo URL
+function fileFromURL(ulr) {
+    const regex = /\/(?:.(?!\/))+$/;
+    return regex.exec(ulr)[0].substring(1);
+}
+
+// Detect wich theme is initially set in html file
+function detectTheme() {
+    const link = document.getElementById("theme");
+    const themeFile = fileFromURL(link.href);
+
+    for (let theme in themes) {
+        if (themes[theme] === themeFile) {
+            currentTheme = theme;
+            return;
+        }
+    }
+
+    console.error("Not theme detected. Make sure that themes object matches css theme files")
+}
+
+function initializeThemeSwitch() {
+    const themeSwitch = document.getElementById("themeSwitch");
+
+    if (currentTheme === "dark") {
+        themeSwitch.checked = false;
+    }
+    if (currentTheme === "light") {
+        themeSwitch.checked = true;
+    }
+
+    themeSwitch.addEventListener('change', handleThemeChange);
+}
+
+function handleThemeChange(event) {
+    if (event.target.checked) {
+        setTheme("light");
+    }
+    else {
+        setTheme("dark");
+    }
+}
+
+// Set page them to one defined in themes variable
+function setTheme(theme) {
+    if (!themes[theme])
+        throw new Error("Theme not found");
+
+    currentTheme = theme;
+    const link = document.getElementById("theme");
+    link.href = themes[currentTheme];
+}
 
 // Get weather data and save it to View Model
 async function getWeatherData(cityName) {
