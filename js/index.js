@@ -22,6 +22,7 @@ let currentTheme;
 
 $(document).ready(async () => {
     detectTheme();
+    setTheme(currentTheme);
     initializeThemeSwitch();
 
     // TODO: Get city name from user/config
@@ -44,17 +45,7 @@ function fileFromURL(ulr) {
 
 // Detect wich theme is initially set in html file
 function detectTheme() {
-    const link = document.getElementById("theme");
-    const themeFile = fileFromURL(link.href);
-
-    for (let theme in themes) {
-        if (themes[theme] === themeFile) {
-            currentTheme = theme;
-            return;
-        }
-    }
-
-    console.error("Not theme detected. Make sure that themes object matches css theme files")
+    currentTheme = getThemeFromTime(new Date());
 }
 
 function initializeThemeSwitch() {
@@ -138,10 +129,12 @@ function renderWeather() {
     const temperature = convertKelvinToCelsius(weatherData.main.temp);
     const rain = weatherData.main.rain;
     const wind = weatherData.wind.speed;
+    const pressure = weatherData.main.pressure;
 
     renderTemperature(temperature);
     renderRain(rain);
     renderWind(wind);
+    renderPressure(pressure);
 }
 
 // Display temperature in html
@@ -167,7 +160,11 @@ function renderWind(wind) {
 
     element.innerText = temp;
 }
+function renderPressure(pressure) {
+    const element = document.getElementById("pressure")
 
+    element.innerText = pressure;
+}
 
 function convertKelvinToCelsius(tempInKelvin) {
     const diffrence = 273.15;
@@ -215,7 +212,7 @@ const renderForecastData = async () => {
         <span><img src="images/icon-umberella.png" alt=""><span id="current-rain"
         style="margin-right: 0;">NA</span></span>
         <span><img src="images/icon-wind.png" alt=""><span id="wind" style="margin-right: 5px;">NA</span>km/h</span>
-        <span><img src="images/icon-compass.png" alt="">East</span>
+        <span><img src="images/icon-compass.png" alt=""><span id="pressure"></span>mb</span>
     </div>
 </div>`
         }
@@ -224,10 +221,16 @@ const renderForecastData = async () => {
         let forecastNight = forecastData.list[forecastIndex - 4];
         let forecastDay = forecastData.list[forecastIndex];
         if (forecastDay === undefined) {
-            forecastDay = forecastData.list[36];
-            forecastNight = forecastData.list[32];
+            forecastDay = forecastData.list[31];
+            forecastNight = forecastData.list[27];
         }
-
+        let tempDay = forecastDay.main.temp;
+        let nightTemp = forecastNight.main.temp;
+        if (tempDay < nightTemp) {
+            let tmp = tempDay;
+            tempDay = nightTemp;
+            nightTemp = tmp;
+        }
 
         return `<div id="f${index}" class="forecast">
             <div class="forecast-header">
@@ -237,8 +240,8 @@ const renderForecastData = async () => {
             <div class="forecast-icon">
             <img src="images/icons/icon-3.svg" alt="" width=48>
             </div>
-            <div class="degree">${convertKelvinToCelsius(forecastDay.main.temp).toFixed(2)}<sup>o</sup>C</div>
-            <small>${convertKelvinToCelsius(forecastNight.main.temp).toFixed(2)}<sup>o</sup></small>
+            <div class="degree">${convertKelvinToCelsius(tempDay).toFixed(2)}<sup>o</sup>C</div>
+            <small>${convertKelvinToCelsius(nightTemp).toFixed(2)}<sup>o</sup></small>
               </div>
         </div>`
     }).join("");
@@ -298,4 +301,16 @@ function displayMood() {
 
     const mInfo = document.getElementById("mInfo");
     mInfo.innerText = moodInfo;
+}
+
+// Return theme name based on time of given date
+const getThemeFromTime = (date) => {
+    let hour = date.getHours();
+
+    if (hour > 18 || hour < 6) {
+        return "dark";
+    }
+    else {
+        return "light";
+    }
 }
