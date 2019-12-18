@@ -22,6 +22,7 @@ let currentTheme;
 
 $(document).ready(async () => {
     detectTheme();
+    setTheme(currentTheme);
     initializeThemeSwitch();
 
     // TODO: Get city name from user/config
@@ -44,17 +45,7 @@ function fileFromURL(ulr) {
 
 // Detect wich theme is initially set in html file
 function detectTheme() {
-    const link = document.getElementById("theme");
-    const themeFile = fileFromURL(link.href);
-
-    for (let theme in themes) {
-        if (themes[theme] === themeFile) {
-            currentTheme = theme;
-            return;
-        }
-    }
-
-    console.error("Not theme detected. Make sure that themes object matches css theme files")
+    currentTheme = getThemeFromTime(new Date());
 }
 
 function initializeThemeSwitch() {
@@ -169,14 +160,11 @@ function renderWind(wind) {
 
     element.innerText = temp;
 }
-function renderPressure(pressure){
+function renderPressure(pressure) {
     const element = document.getElementById("pressure")
 
     element.innerText = pressure;
 }
-
-
-
 
 function convertKelvinToCelsius(tempInKelvin) {
     const diffrence = 273.15;
@@ -236,16 +224,14 @@ const renderForecastData = async () => {
             forecastDay = forecastData.list[31];
             forecastNight = forecastData.list[27];
         }
-        let tempDay =forecastDay.main.temp;
+        let tempDay = forecastDay.main.temp;
         let nightTemp = forecastNight.main.temp;
-        if(tempDay<nightTemp){
+        if (tempDay < nightTemp) {
             let tmp = tempDay;
             tempDay = nightTemp;
             nightTemp = tmp;
         }
 
-
-        dayOrNight(new Date);
         return `<div id="f${index}" class="forecast">
             <div class="forecast-header">
             <div class="day">${dataObject.day}</div>
@@ -316,17 +302,15 @@ function displayMood() {
     const mInfo = document.getElementById("mInfo");
     mInfo.innerText = moodInfo;
 }
-const dayOrNight= date => {
-    const themeSwitch = document.getElementById("themeSwitch");
+
+// Return theme name based on time of given date
+const getThemeFromTime = (date) => {
     let hour = date.getHours();
 
-    if(hour>18 || hour<6){
-        setTheme("dark");
-        themeSwitch.checked = false;
+    if (hour > 18 || hour < 6) {
+        return "dark";
     }
-    else{
-        setTheme("light");
-        themeSwitch.checked = true;
+    else {
+        return "light";
     }
-
 }
