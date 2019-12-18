@@ -19,6 +19,16 @@
     font-size: 20px;
 }
 
+.parent{
+    position: relative;
+}
+.over-img{
+    position: absolute;
+    top: -60%;
+    right: 70%;
+	transform-origin: bottom center;
+}
+
 #mImage {
     width: 100%;
 }
@@ -99,6 +109,9 @@
         grid-column: 3;
         width: auto;
     }
+	
+	
+	
 }
 
 @media (max-width: 380px) {
